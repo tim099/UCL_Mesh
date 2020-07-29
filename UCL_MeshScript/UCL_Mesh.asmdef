@@ -1,6 +1,8 @@
 {
     "name": "UCL_Mesh",
-    "references": [],
+    "references": [
+        "GUID:fb313712d3efc8045821678f6c8743af"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
@@ -8,5 +10,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }
