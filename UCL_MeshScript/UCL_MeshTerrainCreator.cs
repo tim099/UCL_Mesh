@@ -2,7 +2,10 @@
 
 namespace UCL.MeshLib {
     [UCL.Core.ATTR.EnableUCLEditor]
-    public class UCL_MeshTerrainCreator : UCL_MeshCreatorBasic {
+    public class UCL_MeshTerrainCreator : UCL_MeshCreator {
+        UCL.Core.Container.UCL_Vector<Vector3> m_Vertices = new UCL.Core.Container.UCL_Vector< Vector3>();
+        UCL.Core.Container.UCL_Vector<Vector2> m_UV = new UCL.Core.Container.UCL_Vector<Vector2>();
+
         public float m_BlockSize = 1f;
         public float m_HeightMult = 0.1f;
         public int m_Width;
@@ -16,9 +19,7 @@ namespace UCL.MeshLib {
             GenerateMesh();
         }
         public void SetTerrain(float[,] _Terrain) {
-            ClearMesh();
             m_Vertices.Clear();
-            m_Triangles.Clear();
             m_UV.Clear();
 
             m_Terrain = _Terrain;
@@ -88,13 +89,12 @@ namespace UCL.MeshLib {
             GenerateMesh();
         }
         override public void GenerateMesh() {
-            
-
-            m_Mesh.vertices = m_Vertices.ToArray();
-            m_Mesh.uv = m_UV.ToArray(); // add this line to the code here
+            ClearMesh();
+            m_Mesh.vertices = m_Vertices.m_Arr;
+            m_Mesh.uv = m_UV.m_Arr; // add this line to the code here
             //m_Mesh.SetTriangles(m_Triangles.ToArray(), 0);
             int m_FaceCount = (m_Width) * (m_Height);
-            m_Mesh.SetTriangles(GenTriangles(m_FaceCount+1), 0, 6 * m_FaceCount, 0);//m_Triangles.ToArray();
+            m_Mesh.SetTriangles(GenTriangles(m_FaceCount), 0, 6 * m_FaceCount, 0);//m_Triangles.ToArray();
 
             m_Mesh.Optimize();
             m_Mesh.RecalculateNormals();
